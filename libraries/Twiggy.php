@@ -280,7 +280,10 @@ class Twiggy
 
 	public function register_function($name)
 	{
-		$this->_twig->addFunction($name, new Twig_Function_Function($name));
+		if (substr(Twig_Environment::VERSION, 0, 1) == '2')
+            		$this->_twig->addFunction(new \Twig_Function($name, $name));
+		else
+            		$this->_twig->addFunction($name, new Twig_Function_Function($name));
 
 		return $this;
 	}
@@ -295,7 +298,10 @@ class Twiggy
 
 	public function register_filter($name)
 	{
-		$this->_twig->addFilter($name, new Twig_Filter_Function($name));
+		if (substr(Twig_Environment::VERSION, 0, 1) == '2')
+            		$this->_twig->addFilter(new \Twig_Filter($name, $name));
+		else
+            		$this->_twig->addFilter($name, new Twig_Filter_Function($name));
 
 		return $this;
 	}
